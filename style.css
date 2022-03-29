@@ -1,0 +1,179 @@
+:root{
+    --modal-duration: 2s;
+    --color-one:#283C61;
+    --color-second:#009DC5;
+}
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: var(--color-second);
+    overflow: hidden;
+    font-family: 'loto', sans-serif;
+    margin: 0;
+    color: black;
+    transition: transform 2s ease;
+    font-size: 1.5rem;
+}
+#container-task{
+    height: auto;
+    width: 100%;
+}
+.ajout{
+    border: none;
+    background-color: var(--color-one);
+    font-size: 2rem;
+    position: absolute;
+    color: #fff;
+    font-weight: bold;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    cursor: pointer;
+    
+}
+#declenche{
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+}
+#declenche.ouvre{
+    transition: all 3s ease;
+    transform: translateX(0);
+}
+#declenche input{
+    height: 3rem;
+    font-size: 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    border: none;
+}
+#declenche input:hover{
+    background-color: var(--color-one);
+}
+#task{
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;     
+}
+.colonne{
+    height: 800px;
+    width: 16%;
+    margin: 1rem ;
+    border-radius: 5px;
+    display: grid;
+    grid-template-rows: 3rem 1fr;
+    /* justify-content: center; */
+    /* background-image: url(logo.png); */
+    /* align-items: center; */
+    /* box-shadow: 0.2px 4px 5px rgba(0, 0, 0, 0.1); */
+    /* position:relative;
+    overflow: hidden; */
+}
+.centre{
+    overflow-x: hidden;
+    background: url(/images/logo.png) center no-repeat;
+    background-size: 10em ;
+}
+.titre{
+    row-gap: 1;
+    width: 100%;
+    color: #fff;
+    margin: 0;
+    padding: 10px 0;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    top: 0;
+    background-color: var(--color-one);
+    text-align: center;
+    text-transform: uppercase;
+}
+.colonne .supCol{
+    cursor: pointer;
+    position: absolute;
+    border: 2px solid var(--color-second);
+    border-radius: 30%;
+    margin: 5px;
+    background-color: #fff;
+}
+.containt{
+    font-size: .5em;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.containt span:hover{
+    cursor: pointer;
+    background-color: var(--color-one);
+}
+.note-container{
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.note-container.tache{
+    display: block;
+}
+#note{
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    overflow: hidden;   
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+
+    animation: formulaire var(--modal-duration);
+}
+
+@keyframes formulaire{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.bar{
+    background-color: var(--color-one);
+    padding: 15px;
+    color: #fff;
+    /* text-align: center; */
+}
+.bar span{
+    font-size: 2.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+.div-container{
+    padding: 20px;
+}
+#note form div{
+    margin: 15px 0;
+}
+#note form label{
+    display: block;
+    margin-bottom: 5px;
+}
+#note form .large{
+    width: 100%;
+    padding: 8px;
+}
+#note form button{
+    background-color: var(--color-one);
+    color: #fff;
+    font-size: 2.5rem;
+}
