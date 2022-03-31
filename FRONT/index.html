@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Task-Maker</title>
+</head>
+<body>
+    <div id="container-task">
+         
+        <div id="note">
+            <div class="bar">
+                <p>NOUVELLE TACHE</p>
+                <span class="sup">x</span>
+            </div>
+            <div id="div-container">
+                <h3>Remplir les informations de la nouvelle tache</h3>
+            
+            <form action="" id="form">
+                <div class="form-control">
+                    <label for="#">Tache</label>
+                    <textarea name="" id="textarea" cols="30" rows="20" class="large"></textarea>
+                    <small>Error message</small>
+                </div>
+                <div class="form-control">
+                    <label for="#">Date</label>
+                    <input type="date" class="large" id="date">
+                    <small>Error message</small>
+                </div>
+                <div class="form-control">
+                    <label for="#">Heure de Début</label>
+                    <input type="time" class="large" id="timeon">
+                    <small>Error message</small>
+                </div>
+                <div class="form-control">
+                    <label for="#">Heure de Fin</label>
+                    <input type="time" class="large" id="timeof">
+                    <small>Error message</small>
+                </div>
+                <button class="large envoie">Envoyer</button>
+            </form>
+        </div> 
+        </div>
+    </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

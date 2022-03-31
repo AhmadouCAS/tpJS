@@ -1,7 +1,9 @@
 :root{
-    --modal-duration: 2s;
+    --modal-duration: 3s;
     --color-one:#283C61;
     --color-second:#009DC5;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
 }
 *{
     box-sizing: border-box;
@@ -19,17 +21,30 @@ body{
     height: auto;
     width: 100%;
 }
-.ajout{
-    border: none;
-    background-color: var(--color-one);
-    font-size: 2rem;
+#container-task .corb{
+    font-size: 2em;
+    color: red;
+    background-color: var(--color-second);   
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+#container-task .corb:hover{
+    cursor: pointer;
+    transform: scale(1.5);
+}
+.corbeille{
+    width: 0; 
     position: absolute;
     color: #fff;
-    font-weight: bold;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    cursor: pointer;
-    
+    height: auto;
+    right: 0;
+    background-color: var(--color-one);
+    transition: all 1s ease;
+}
+.corbeille.free{
+    width: 300px;
+    padding-left: 10px;
 }
 #declenche{
     height: 6rem;
@@ -55,7 +70,52 @@ body{
     height: 80%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;     
+    justify-content: center;   
+}
+.ecrite{
+    display: block;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    text-align: center;
+    animation: Presentation var(--modal-duration);
+}
+@keyframes Presentation{
+    0%{
+        opacity: 0;    
+    }
+    50%{
+        transform: scale(1);
+        color: black;
+        
+    }
+    100%{
+        opacity: 1;
+        transform: translate(-50%,-50%);
+        color: #fff;
+    }
+}
+.ecrite.repli{
+    display: none;
+}
+.ajout{
+    border: none;
+    background-color: var(--color-one);
+    font-size: 2rem;
+    border-radius: 50px; 
+    color: #fff;
+    font-weight: bold;
+}
+.ajout.ouvrant{
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    
+    animation: formulaire var(--modal-duration);
+}
+.ajout:hover{
+    cursor: pointer;
+    transform: scale(1.5);
 }
 .colonne{
     height: 800px;
@@ -64,17 +124,12 @@ body{
     border-radius: 5px;
     display: grid;
     grid-template-rows: 3rem 1fr;
-    /* justify-content: center; */
-    /* background-image: url(logo.png); */
-    /* align-items: center; */
-    /* box-shadow: 0.2px 4px 5px rgba(0, 0, 0, 0.1); */
-    /* position:relative;
-    overflow: hidden; */
 }
 .centre{
     overflow-x: hidden;
-    background: url(/images/logo.png) center no-repeat;
+    background: url(logo.png) center no-repeat;
     background-size: 10em ;
+    
 }
 .titre{
     row-gap: 1;
@@ -91,12 +146,14 @@ body{
     text-transform: uppercase;
 }
 .colonne .supCol{
-    cursor: pointer;
     position: absolute;
-    border: 2px solid var(--color-second);
-    border-radius: 30%;
+    color: #fff;
     margin: 5px;
-    background-color: #fff;
+}
+.colonne .supCol:hover{
+    color: red;
+    cursor: pointer;
+    transform: scale(2);
 }
 .containt{
     font-size: .5em;
@@ -108,8 +165,18 @@ body{
     border-radius: 5px;
     margin-bottom: 5px;
 }
+.containt .write, .corbeille i{
+    cursor: pointer;
+}
+.containt i{
+    position: relative;
+    right: 0;
+    top: -10px;
+    cursor: pointer;
+}
 .containt span:hover{
     cursor: pointer;
+    transform: scale(1.5);
     background-color: var(--color-one);
 }
 .note-container{
@@ -124,7 +191,7 @@ body{
 .note-container.tache{
     display: block;
 }
-#note{
+#note.porte{
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
@@ -133,8 +200,11 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); 
-
+    display: block;
     animation: formulaire var(--modal-duration);
+}
+#note{
+    display: none;
 }
 
 @keyframes formulaire{
@@ -145,10 +215,37 @@ body{
         opacity: 1;
     }
 }
+.form-control .large:focus{
+    outline: 0;
+    border-color: #777;
+}
+
+.form-control.success .large{
+    border-color: var(--success-color);
+}
+
+.form-control.error .large{
+    border-color: var(--error-color);
+}
+
+.form-control small{
+    color: var(--error-color);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+}
+.form-control.error small{
+    visibility: visible;
+}
+.envoie{
+    cursor: pointer;
+}
 .bar{
     background-color: var(--color-one);
     padding: 15px;
     color: #fff;
+    
     /* text-align: center; */
 }
 .bar span{
@@ -157,6 +254,10 @@ body{
     top: 0;
     right: 0;
     margin: 10px;
+}
+.bar span:hover{
+    cursor: pointer;
+    transform: scale(1.5);
 }
 .div-container{
     padding: 20px;
@@ -176,4 +277,7 @@ body{
     background-color: var(--color-one);
     color: #fff;
     font-size: 2.5rem;
+}
+#note h3{
+    font-size: 1em;
 }
