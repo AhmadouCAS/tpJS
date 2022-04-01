@@ -3,6 +3,10 @@ const container = document.getElementById('container-task')
 const note=document.getElementById('note')
 const form=document.getElementById('form')
 const text = document.getElementById('textarea')
+const timeon = document.getElementById('timeon')
+const timeof = document.getElementById('timeof')
+const date = document.getElementById('date')
+var time = 1000
 
 //couleurs pour les colonnes
 var color=["#E5C8FF","#A69E3B","#FDEACE","#6EE6D7","#A1818A","#dce73c","#1d1f01","#9327b4","#f06524","#f024f0"]
@@ -19,8 +23,7 @@ const corb = document.createElement('span')
 const button = document.createElement('button')
 const task = document.createElement('div')
 const notes = document.createElement('div')
-
-// 
+ 
 declenche.setAttribute('id','declenche')
 declenche.classList="declenche"
 button.innerHTML='+'
@@ -39,6 +42,8 @@ btnTache.setAttribute('type','button')
 
 notes.classList.add('note-container')
 
+btnTache.disabled=true;
+
 container.appendChild(declenche)
 container.appendChild(task)
 container.appendChild(notes)
@@ -48,8 +53,8 @@ container.appendChild(corb)
 task.appendChild(corbeille)
 pres.appendChild(ecrit1)
 pres.appendChild(ecrit2)
-task.appendChild(pres)
 pres.appendChild(button)
+task.appendChild(pres)
 
 //Evenements
 
@@ -68,23 +73,25 @@ btnColonne.addEventListener('click',()=>{
    button.classList.add('ouvrant')
    task.appendChild(button)
     CreateColonne()
+    btnTache.disabled=false;
     
      //creation task
-    btnTache.addEventListener('click',()=>{
-       // alert('ok')
-       notes.classList.toggle('tache')
-       note.classList.toggle('porte')
 
-       const sup =document.querySelector('.sup')
+})
+
+btnTache.addEventListener('click',()=>{
+    // alert('ok')
+    notes.classList.toggle('tache')
+    note.classList.toggle('porte')
+    
+     TaskMaker()      
+ })
+const sup =document.querySelector('.sup')
        sup.onclick = function(){
            notes.classList.remove('tache')
            note.classList.remove('porte')
            // alert('ok') 
        } 
-        TaskMaker()      
-    })
-})
-
 //functions 
 var i=0
 let nbr=0
@@ -111,15 +118,13 @@ function CreateColonne(){
         centre.classList='centre'
         supCol.classList='supCol'
         supCol.innerHTML='x'
-    
-        
+           
         // colonne.appendChild(logo)
         task.appendChild(colonne) 
         colonne.appendChild(titre)
         colonne.appendChild(centre)
         colonne.appendChild(supCol)
     
-
         //Editer titre
         titre.addEventListener('click',function(){
 
@@ -141,20 +146,27 @@ function CreateColonne(){
                 supCol.addEventListener('click', function(){
                     this.parentElement.remove();
 
-                // const restor = document.createElement('i')
-                // restor.innerHTML=`&#128257`
-              
-                // corbeille.append(restor)
-                corbeille.append(titre)
-                                         
+                corbeille.append(titre)                                         
                 });       
-            }
-             
+            }             
         }
     //     function reflesh(){
     //     colonnes.forEach((nbr,i)=>{
     //         nbr.firstChild.innerHTML='colonne'+(i+1)
     //     })
+    // }
+    // async function getRandomUser() {
+    //     const res = await fetch('http://localhost:8001/');
+    //     const data = await res.json();
+    
+    //     const user = data.results[0];
+    
+    //     const newUser = {
+    //         name: `${user.name.first} ${user.name.last}`,
+    //         money: Math.floor(Math.random() * 1000000)
+    //     }
+    //     addData(newUser);
+        
     // }
           
 } 
@@ -162,163 +174,237 @@ function CreateColonne(){
 //function create task
 function TaskMaker(){
     
-notes.appendChild(note)
+    notes.appendChild(note)
     const larges = document.querySelectorAll('.large')
-    // var textarea = document.querySelectorAll('#textarea')
+
     form.addEventListener('submit',function(e){
         e.preventDefault()
         
-        //appel evenements
-        checkRequired([textarea, date, timeon, timeof]);
-        
-        //     //
-        //     checkLength(username, 3, 15);
-        //     checkLength(password, 6, 25);
-        //     checkEmail(email);
-        //     checkPasswordMatch(password,password2);
-              
+        if (Validate()) {
+            const centres = document.querySelectorAll(".centre")       
 
+                var containt = document.createElement('div')
+                const spana = document.createElement('span')
+                const spanb = document.createElement('span')
+                const write = document.createElement('p')
+                const del = document.createElement('i')
 
-        const centres = document.querySelectorAll(".centre")       
-            
-            var containt = document.createElement('div')
-            const spana = document.createElement('span')
-            const spanb = document.createElement('span')
-            const write = document.createElement('p')
-            const del = document.createElement('i')
-                        
-            containt.classList.add('containt')
-            spana.innerHTML='&#xab'
-            spana.classList=('spana')
-            write.className='write'
-            spanb.innerHTML='&#187'
-            del.innerHTML='&#x1F5D1'
-            spanb.classList=('spanb')
-            write.innerHTML=''
-            write.innerHTML= `${larges[0].value}`
-            
-            containt.appendChild(spana)
-            containt.appendChild(write)
-            containt.appendChild(del)
-            containt.appendChild(spanb)               
-             
-            containt.appendChild(spana)
-            centres[0].appendChild(containt) 
-            
-            //Deplacement des taches
-            spana.addEventListener('click',function(){
-                // console.log(centres)
-                this.closest('.colonne').previousSibling.querySelector('.centre').appendChild(this.parentElement)
-            })
-            
-            spanb.addEventListener('click',function(){
-                this.closest('.colonne').nextSibling.querySelector('.centre').appendChild(this.parentElement)
-            })
-            
-                // Autre methode
-            // spana.addEventListener('click',function(){
-            //     this.parentElement.remove()
-            //     centres[0].append(containt)
-            //     // console.log(containt)                 
-            // })
+                containt.classList.add('containt')
+                spana.innerHTML='&#xab'
+                spana.classList=('spana')
+                write.className='write'
+                spanb.innerHTML='&#187'
+                del.innerHTML='&#x1F5D1'
+                spanb.classList=('spanb')
+                write.innerHTML=''
+                write.innerHTML= `${larges[0].value}`
 
-            write.addEventListener('click',function(){
-                
-                const remove = document.createElement('i')
-                remove.innerHTML='&#x1F5D1'
-                    const neWrite = document.createElement('textarea')
-                    neWrite.value = write.innerHTML
-                    neWrite.setAttribute=('cols','30')
-                    write.innerHTML=''
-                    write.appendChild(neWrite)
-                    write.appendChild(remove)
-                    neWrite.focus();
-        
-                    neWrite.addEventListener('blur',function(){
-                        write.innerHTML = neWrite.value
-                        // build()
-                    })
-                })
-            //suppression des taches
-            del.onclick = function(){
-                this.parentElement.remove()
-                const restor = document.createElement('i')
-                restor.innerHTML=`&#128257`
-              
-                corbeille.append(write)
-                corbeille.append(restor)
-                // console.log(containt)
-                restor.onclick = function(){
-                    restor.innerHTML=''
-                    containt.appendChild(write)
-                    centres[0].appendChild(containt)
-                    // centres[0].appendChild(containt)
-                    // this.parentElement.previousSibling.querySelector('.centre').appendChild(this.parentElement)
-                }
-            };
-                
+                containt.appendChild(spana)
                 containt.appendChild(write)
                 containt.appendChild(del)
                 containt.appendChild(spanb)               
-             
-                    
+
+                containt.appendChild(spana)
                 centres[0].appendChild(containt) 
 
-                    
-    //     charge tache sur la colonne
-    //     fetch("fichier.json").then(res=>res.json()).then(data=>{
-    //         affiche(data)
-    //    // console.log(data) 
-    //     })      
-    //}   
-       // } 
+                //Deplacement des taches
+                spana.addEventListener('click',function(){
+                    // console.log(centres)
+                    this.closest('.colonne').previousSibling.querySelector('.centre').appendChild(this.parentElement)
+                })
+
+                spanb.addEventListener('click',function(){
+                    this.closest('.colonne').nextSibling.querySelector('.centre').appendChild(this.parentElement)
+                })            
+                    // Autre methode
+                // spana.addEventListener('click',function(){
+                //     this.parentElement.remove()
+                //     centres[0].append(containt)
+                //     // console.log(containt)                 
+                // })
+                // setInterval(() => {
+                //     write.addEventListener('mouseover',function(){
+                //         write.innerHTML= `${larges[1].value}`    
+                //     })
+                // }, time);
+            
+                window.addEventListener('mouseover', e => e.target == write ? write.innerHTML= `${larges[1].value}` : false )
+
+                write.addEventListener('click',function(){
+
+                    const remove = document.createElement('i')
+                    remove.innerHTML='&#x1F5D1'
+
+                        notes.classList.toggle('tache')
+                        note.classList.toggle('porte')
+
+                        const neWrite = document.createElement('textarea')
+                        neWrite.value = write.innerHTML
+                        neWrite.setAttribute=('cols','30')
+                        write.innerHTML=''
+                        write.appendChild(neWrite)
+                        write.appendChild(remove)
+                        neWrite.focus();
+                
+                        neWrite.addEventListener('blur',function(){
+                            write.innerHTML = neWrite.value
+                            // build()
+                        })
+                    })
+                //suppression des taches
+                del.onclick = function(){
+                    this.parentElement.remove()
+                    const restor = document.createElement('i')
+                    restor.innerHTML=`&#128257`
+                
+                    corbeille.append(write)
+                    corbeille.append(restor)
+                    // console.log(containt)
+                    restor.onclick = function(){
+                        restor.innerHTML=''
+                        containt.appendChild(write)
+                        centres[0].appendChild(containt)
+                    }
+                };
+
+            containt.appendChild(write)
+            containt.appendChild(del)
+            containt.appendChild(spanb)                       
+
+            centres[0].appendChild(containt) 
+        }                     
+        // charge tache sur la colonne
+         fetch("fichier.json").then(res=>res.json()).then(data=>{
+             affiche(data)
+        // console.log(data) 
+         })      
+      
+ 
     })  
 }  
+
     //Validation
-function showSuccess() {
-    // const formControl = input.parentElement;
-    const formControl = form.querySelectorAll('.form-control')
+function showSuccess(element) {
+    const formControl = element.parentElement;
+    //const formControl = form.querySelectorAll('.form-control')
     // console.log(formControl)
     formControl.className = 'form-control success'; 
 }
-function showError(message) {//Afficher les messages d'erreur
-    const formControl = document.querySelectorAll('.form-control')
+//Afficher les messages d'erreur
+function showError(element,message) {
+    // const formControl = document.querySelectorAll('.form-control')
+    const formControl = element.parentElement
     formControl.className = 'form-control error';
-    const small = form.querySelector('small');
+    const small = formControl.querySelector('small');
     small.innerText = message;
-    console.log(formControl)
+    // console.log(formControl)
 }
-
-function getFieldName(input) {//Retour le nom de chaque input en se basant sur son id
-    return input.id.charAt(0).toUpperCase() + input.id.slice(1);
-}
-
-//Tester si les champs ne sont pas vides
-function checkRequired(inputArray) {
-    inputArray.forEach(input => {
-        if (input.value.trim() === '') {
-            showError(input,`${getFieldName(input)} is required`);
-
-        }else{
-            showSuccess();
-        }
-    });
-}
-// function checkLength(input, min, max) {//Tester la longueur de la valeur  d'un input
-//     if(input.value.length < min){
-//         showError(input, `${getFieldName(input)} must be at least ${min} characters!`)
-//     }else if(input.value.length > max){
-//         showError(input, `${getFieldName(input)} must be less than ${max} characters !`);
-//     }else{
-//         showSuccess(input);
-//     }
-// }
-
-function checkDateMatch(input1, input2) {
-    if (input2.value <= input1.value) {
-        showError(input2, 'time do not match!');
+function TextLength(textarea, min, max) {//Tester la longueur de la valeur  d'un input
+    if(textarea.value.length < min){
+        showError(textarea, `Le texte doit comporter plus de ${min} lettres !`)
+    }else if(textarea.value.length > max){
+        showError(textarea, `Le texte doit comporter plus de ${max} lettres !`);
+    }else{
+        showSuccess(textarea);
     }
 }
+
+const Validate = ()=>{
+    const textValue = textarea.value.trim()
+    const dateValue = date.value.trim()
+    const timeonValue = timeon.value.trim()
+    const timeofValue = timeof.value.trim()
+
+    // const Day =moment();
+ cpt = 0
+    if (textValue === '') {
+        showError(textarea, 'Veuillez saisir un text')
+        cpt++
+    }else{
+        showSuccess(textarea)
+    }
+    if (dateValue === '') {
+        showError(date, 'Veuillez introduire une date')
+        cpt++
+    }else{
+        showSuccess(date)
+    }
+    // if (Day < dateValue) {
+    //     showError(Day, 'The Day do not match!');
+    // } 
+    if (timeonValue === '') {
+        showError(timeon, `Veuillez définir l'heure de debut`)
+        cpt++
+    }else{
+        showSuccess(timeon)
+    }
+    if (timeofValue === '') {
+        showError(timeof, `Veuillez définir l'heure de fin`)
+        cpt++
+    }else{
+        showSuccess(timeof)
+    } 
+    //Compare les horaires
+    if (timeon.value >= timeof.value) {
+        showError(timeof, 'Time do not match!');
+        cpt++
+    } 
+    if (cpt==0) {
+        return true
+    }else{
+        return false
+    }
+
+}
+
+//UPDATE CONTDOWNTIME
+// function Timeover(){
+//     const currentYear =moment();
+//     const newYear =moment('20220915', 'YYYYMMDD');
+//     const diff = newYear - currentYear;
+
+//     const daysNumbers = newYear.diff(currentYear, 'day');
+
+//     const my_Object_duration = moment.duration(diff, 'milliseconds');
+    
+//     console.log(my_Object_duration);
+//     days.innerHTML = daysNumbers;
+//     hour.innerHTML = my_Object_duration._data.hours;
+//     minute.innerHTML = my_Object_duration._data.minutes;
+//     seconde.innerHTML = my_Object_duration._data.seconds;
+// }
+
+// setInterval(() => {
+//     updateCountdowntime();
+// }, 1000);
+
+//setInterval(Validate, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // const centres = document.querySelectorAll(".centre")       

@@ -229,10 +229,7 @@ body{
 }
 
 .form-control small{
-    color: var(--error-color);
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    color: var(--error-color);   
     visibility: hidden;
 }
 .form-control.error small{
