@@ -15,7 +15,7 @@ define("PATH_SRC",ROOT."src".DIRECTORY_SEPARATOR);
 define("PATH_VIEWS",ROOT."templates".DIRECTORY_SEPARATOR);
 
 // Chemin sur data qui contient le fichier Json db.json
-define("PATH_DB",ROOT."data".DIRECTORY_SEPARATOR."db.json");
+define("PATH_DB",ROOT."data".DIRECTORY_SEPARATOR."fichier.json");
 
 //Requete GET et POST
 define("WEB_ROOT","http://localhost:8001/");
@@ -23,8 +23,3 @@ define("WEB_ROOT","http://localhost:8001/");
 // URL charger les images 
 define("WEB_PUBLIC",str_replace("index.php","",$_SERVER['SCRIPT_NAME']));
 // var_dump(WEB_PUBLIC);die;
-
-
-//cte d'erreurs
-define("KEY_ERRORS","errors");
-

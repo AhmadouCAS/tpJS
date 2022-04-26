@@ -20,34 +20,36 @@
                 <form action="<?= WEB_ROOT ?>" method="POST" id="form" enctype="multipart/form-data">
     
                         <input type="hidden" name="controller" value="securite">
-                        <input type="hidden" name="action" value="register">
+                        <input type="hidden" name="action" value="trello">
                         <input type="hidden" name="textarea" value="">
                         <input type="hidden" name="date" value="">
+                        <input type="hidden" name="timeon" value="">
+                        <input type="hidden" name="timeof" value="">
 
                     <div class="form-control">
                         <label for="#">Tache</label>
-                        <textarea name="textarea" id="textarea" cols="30" rows="20" class="large"></textarea>
-                        <input type="hidden" name="textarea" value="textarea">
+                        <textarea name="textarea" id="textarea" cols="30" rows="20" value="Blabla" class="large"></textarea>
+                        <input type="hidden" name="textarea" onfocus="this.value=''" value="textarea">
                         <small>Error message</small>
                     </div>
             
                     <div class="form-control">
                         <label for="#">Date</label>
-                        <input type="date" class="large" id="date" name="date" min="2021-04-01" max="2100-12-31">
+                        <input type="date" class="large" id="date" onfocus="this.value=''" name="date" min="2021-04-01" max="2100-12-31">
                 
                         <small>Error message</small>
                     </div>
                     <div class="form-control">
                         <label for="#">Heure de Début</label>
-                        <input type="time" class="large" id="timeon" name="timeon">
+                        <input type="time" class="large" onfocus="this.value=''" id="timeon" name="timeon">
                         <small>Error message</small>
                     </div>
                     <div class="form-control">
                         <label for="#">Heure de Fin</label>
-                        <input type="time" class="large" id="timeof" name="timeof">
+                        <input type="time" class="large" onfocus="this.value=''" id="timeof" name="timeof">
                         <small>Error message</small>
                     </div>
-                    <button class="large envoie" name="envoie">Envoyer</button>
+                    <button class="large envoie" onfocus="this.value=''" name="envoie">Envoyer</button>
                 </form>
             </div> 
         </div>

@@ -4,7 +4,7 @@ require_once(PATH_SRC."models".DIRECTORY_SEPARATOR."user.models.php");
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     if(isset($_REQUEST['action'])){
         
-        if ($_REQUEST['action']=="register") {
+        if ($_REQUEST['action']=="trello") {
            $textarea = $_POST['textarea'];
             $date = $_POST['date'];
             $timeon = $_POST['timeon'];
@@ -19,11 +19,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 // Traitement des Requetes GET
 if($_SERVER["REQUEST_METHOD"]=="GET"){
     if(isset($_REQUEST['action'])){
-        if($_REQUEST['action']=="register"){
-            require_once(PATH_VIEWS."securite/register.html.php");            
+        if($_REQUEST['action']=="trello"){
+            require_once(PATH_VIEWS."");            
         }
     }else {
-        require_once(PATH_VIEWS."securite".DIRECTORY_SEPARATOR."connexion.html.php");
+        require_once(PATH_VIEWS."securite".DIRECTORY_SEPARATOR."");
         }
 }
 //les fonctions:
